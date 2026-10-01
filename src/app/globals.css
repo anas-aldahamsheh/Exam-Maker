@@ -1,26 +1,218 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-amber-50: #fcfaf2;
+  --color-amber-100: #f7f2dc;
+  --color-amber-200: #eee3b5;
+  --color-amber-300: #e4d18c;
+  --color-amber-400: #d8bf62;
+  --color-amber-500: #cda940;
+  --color-amber-600: #af8c28;
+  --color-amber-700: #8c6c19;
+  --color-amber-800: #705417;
+  --color-amber-900: #5a4417;
+  --color-amber-950: #221805;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@custom-variant dark (&:where(.dark, .dark *));
 
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #fbfbf9;
+    --foreground: #1c1917;
+    --card: #ffffff;
+    --card-foreground: #1c1917;
+    --primary: #c59b27;
+    --primary-foreground: #ffffff;
+    --secondary: #f4f3ee;
+    --secondary-foreground: #292524;
+    --muted: #f4f3ee;
+    --muted-foreground: #78716c;
+    --accent: #fbf6e6;
+    --accent-foreground: #8f6b15;
+    --destructive: #dc2626;
+    --destructive-foreground: #ffffff;
+    --warning: #c59b27;
+    --warning-foreground: #78580b;
+    --success: #16a34a;
+    --success-foreground: #ffffff;
+    --border: #e8e6df;
+    --input: #e8e6df;
+    --ring: #c59b27;
+
+    /* Standard Motion Tokens (animation-system) */
+    --duration-instant: 100ms;
+    --duration-fast: 150ms;
+    --duration-normal: 220ms;
+    --duration-slow: 320ms;
+    --ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-exit: cubic-bezier(0.7, 0, 0.84, 0);
+    --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    --background: #090a0e;
+    --foreground: #f5f5f4;
+    --card: #111218;
+    --card-foreground: #f5f5f4;
+    --primary: #e5c06e;
+    --primary-foreground: #090a0e;
+    --secondary: #171821;
+    --secondary-foreground: #f5f5f4;
+    --muted: #15161f;
+    --muted-foreground: #a8a29e;
+    --accent: #232014;
+    --accent-foreground: #f3dfa2;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --warning: #e5c06e;
+    --warning-foreground: #fbf6e6;
+    --success: #22c55e;
+    --success-foreground: #ffffff;
+    --border: rgba(255, 255, 255, 0.08);
+    --input: rgba(255, 255, 255, 0.08);
+    --ring: #e5c06e;
+  }
+
+  * {
+    border-color: var(--border);
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans), var(--font-arabic), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  [dir="rtl"] body,
+  [dir="rtl"] {
+    font-family: var(--font-arabic), var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    letter-spacing: 0;
+  }
+
+  [dir="rtl"] h1,
+  [dir="rtl"] h2,
+  [dir="rtl"] h3 {
+    letter-spacing: 0;
+    line-height: 1.35;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Atmospheric Ambient Lighting with Pure Champagne Gold Glow */
+.bg-ambient {
+  background-color: #fbfbf9;
+  background-image: 
+    radial-gradient(at 20% 0%, rgba(229, 192, 110, 0.07) 0px, transparent 45%),
+    radial-gradient(at 80% 0%, rgba(197, 155, 39, 0.04) 0px, transparent 45%);
+}
+
+.dark .bg-ambient {
+  background-color: #090a0e;
+  background-image: 
+    radial-gradient(at 50% -5%, rgba(229, 192, 110, 0.09) 0px, transparent 55%),
+    radial-gradient(at 85% 15%, rgba(229, 192, 110, 0.04) 0px, transparent 40%),
+    radial-gradient(at 15% 40%, rgba(197, 155, 39, 0.03) 0px, transparent 40%);
+}
+
+/* Subtle Technical Grid Overlay */
+.bg-grid-glow {
+  background-size: 36px 36px;
+  background-image: 
+    linear-gradient(to right, rgba(120, 113, 108, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(120, 113, 108, 0.07) 1px, transparent 1px);
+}
+.dark .bg-grid-glow {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+}
+
+/* Glass Surface with Subtle Warm Highlight */
+.glass-card {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(231, 229, 228, 0.8);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03), 0 1px 0 0 rgba(255, 255, 255, 0.9) inset;
+}
+
+.dark .glass-card {
+  background: rgba(17, 18, 24, 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.5), 0 1px 0 0 rgba(255, 255, 255, 0.05) inset;
+}
+
+/* Micro-interaction & tactile animation helpers */
+.interactive-tap {
+  transition: transform var(--duration-instant) var(--ease-enter);
+}
+.interactive-tap:active {
+  transform: scale(0.98);
+}
+
+.interactive-chip {
+  transition: transform var(--duration-instant) var(--ease-enter), background-color var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard);
+}
+.interactive-chip:active {
+  transform: scale(0.95);
+}
+
+/* Calm subtle pulse for live indicators and critical warnings */
+@keyframes pulse-calm {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.82;
+    transform: scale(0.98);
+  }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-calm 2.2s ease-in-out infinite;
+}
+
+/* Smooth fade in */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeIn var(--duration-normal) var(--ease-enter) forwards;
+}
+
+/* Numeric timer and code always stay LTR */
+.numeric-ltr {
+  direction: ltr !important;
+  unicode-bidi: isolate;
+  font-variant-numeric: tabular-nums;
+}
+
+code, pre {
+  direction: ltr !important;
+  text-align: left !important;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
