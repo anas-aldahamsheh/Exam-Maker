@@ -145,7 +145,16 @@ Instructions:
    - whatWasMissing: bullet points of critical edge cases, missing failure modes, unaddressed trade-offs, or scaling concerns left out.
    - mistakes: any incorrect technical assumptions, flawed algorithms, or vulnerability risks in their answer.
    - suggestedBetterAnswer: a model, concise, high-scoring Staff-level answer demonstrating optimal patterns and trade-offs.
-4. Return strictly valid JSON matching the schema.
+4. Return strictly valid JSON with exactly these keys:
+{
+  "score": <integer 0-${params.maxScore}>,
+  "dimensionScores": { "correctness": <0-10>, "completeness": <0-10>, "technicalUnderstanding": <0-10>, "relevance": <0-10>, "clarity": <0-10> },
+  "whatWasCorrect": [string],
+  "whatWasMissing": [string],
+  "mistakes": [string],
+  "suggestedBetterAnswer": string,
+  "confidence": <number 0-1>
+}
 `.trim();
 }
 
